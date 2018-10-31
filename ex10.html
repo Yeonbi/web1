@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Object</h1>
+    <h2>Create</h2>
+    <script>
+      var coworkers = {
+        "programmer":"egoing",
+        "designer":"leezche"
+      };//객체는 object literal을 사용해 객체 생성{중활호}, 배열은 [대괄호]
+      document.write("programmer : "+coworkers.programmer+"<br>");
+      document.write("designer : "+coworkers.designer+"<br>");
+      coworkers.bookkeeper = "duru";
+      document.write("bookkeeper : "+coworkers.bookkeeper+"<br>");
+      coworkers["data scientist"] = "taeho"; //배열에서 [대괄호]사용하기 때문에 이것을 활용하여 대괄호로 문자와 띄어쓰기를 쓸수 있다. 그대신 . 을 없애야 함
+      document.write("data scientist : "+coworkers["data scientist"]+"<br>");
+    </script>
+    <h2>Iterate</h2>
+    <script>
+      for(var key in coworkers){
+        document.write(key+' : '+coworkers[key]+'<br>');
+      }
+    </script>
+    <h2>Property & Method</h2>
+    <script>
+      coworkers.showAll = function(){//객체에 소속된 함수는 Method 라고 하며, 객체에 소속된 변수는 프로퍼티라고 함
+        for(var key in coworkers){
+          document.write(key+' : '+this[key]+'<br>');
+        }
+      }
+      coworkers.showAll();
+    </script>
+  </body>
+</html>
