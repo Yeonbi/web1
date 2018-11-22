@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>네이버 지도를 달아보자 (v3 버전) : 초간단 예제 : 클릭한 위치 위도·경도 보기 (클릭 이벤트 적용)</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+<div style="text-align:center; margin:0 0 100px 0; background:#555; line-height:80px;">
+	<a style="color:#fff; font-weight:bold; font-family:tahoma; font-size:20pt;" href="http://ktsmemo.cafe24.com/s/naver_map_v3/336" target="_blank">http://ktsmemo.cafe24.com/s/naver_map_v3/336</a>
+</div>
+
+
+<!-- 예제 시작 -->
+
+<!-- 사용한 clientId 키는 localhost 에서도 테스트 할 수 있습니다. -->
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=v6uq3Nmidx6gdSOddr1A"></script>
+
+<!-- 지도가 생성되는 div 영역, id 는 naverMap 으로 설정 -->
+<div id="naverMap" style="width:700px; height:650px;"></div>
+<div style="text-align:center; margin-top:10px;">
+	위도 : <input type="text" name="namp_lat" />
+	경도 : <input type="text" name="namp_lng" />
+</div>
+
+<script>
+
+var nmap = new naver.maps.Map('naverMap', { // naverMap 값은 div 의 id 값
+	center : new naver.maps.LatLng(37.5782709,126.9770043), // 지도 중앙 위치 : 위도, 경도 설정
+	zoom : 1, // 줌 설정 : 1~14, 수치가 클수록 지도 확대(줌인), 이 옵션 생략시 기본값 9
+	zoomControl : true, // 줌 컨트롤 표시 (기본값 표시안함)
+	zoomControlOptions : { // 줌 컨트롤 오른쪽 위로 위치 설정
+		position : naver.maps.Position.TOP_RIGHT // 오른쪽 위로 설정값
+	},
+	mapTypeControl : true, // 일반ㆍ위성 지도보기 컨트롤 표시 (기본값 표시안함)
+});
+
+
+naver.maps.Event.addListener(nmap, 'click', function(e){
+	// 제이쿼리 사용
+	$('[name=namp_lat]').val(e.coord.lat()); // 위도
+	$('[name=namp_lng]').val(e.coord.lng()); // 경도
+});
+
+</script>
+
+<!-- 예제 종료 -->
+
+
+</body>
+</html>

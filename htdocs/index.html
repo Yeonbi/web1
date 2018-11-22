@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <title>WEB1 - Welcome</title>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
+  <script src="fetch-master/fetch.js"></script>
+</head>
+<body>
+  <h1><a href="index.html">WEB</a></h1>
+  <input id="night_day" type="button" value="night" onclick="
+    nightDayHandler(this);
+  ">
+  <ol id = "nav">
+
+  </ol>
+  <article>
+
+  </article>
+  <script>
+  function fetchPage(name){
+    fetch(name).then(function(response){
+      response.text().then(function(text){
+        document.querySelector('article').innerHTML = text;
+      })
+    });
+  }
+  if(location.hash){
+    fetchPage(location.hash.substr(2)); //#! 다음에 오는 글자 추출
+  }else {
+    fetchPage('mainPage'); //hash #가 없다면 mainPage를 보여줌
+  }
+
+
+    fetch('list2').then(function(response){
+      response.text().then(function(text){
+        console.log(text);
+       var items = text.split(',');
+       //string.split(separator, limit)형태, text열을 콤마를 기준으로 해서 하나하나 쪼개서 배열이 되는 표현식
+        var i = 0;
+        var tags = "";//빈 문자열
+        while(i<items.length){
+          var item = items[i];
+          item = item.trim(); //배열안에 있는 javascript에 공백을 없애주는 함수(atom editor의 문제인 듯)
+          var tag = '<li><a href="#!'+item+'" onclick="fetchPage(\''+item+'\')">'+item+'</a></li>';
+          //<li><a href="#!html" onclick="fetchPage('html')">HTML</a></li>
+          //'작은따옴표'는 문자열의 처음과 끝을 의미하고, 순수한 문자표시 \'역슬래시+작은따옴표
+          console.log(tag);
+          tags = tags + tag;
+          i++;//i = i + 1;
+        }
+        document.querySelector('#nav').innerHTML = tags;
+      })
+    });
+
+
+  </script>
+</body>
+</html>
